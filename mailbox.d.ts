@@ -7,6 +7,13 @@ export declare class Mailbox {
     private token;
     private expire_at;
     constructor();
+    health(): Promise<boolean>;
+    getToken(): string;
+    accountExist(): Promise<boolean>;
+    setPass(password: string): Promise<boolean>;
+    smtpStatus(): Promise<string>;
+    smtpStart(): Promise<boolean>;
+    smtpStop(): Promise<boolean>;
     signIn(address: string, password: string): Promise<boolean>;
     refresh(): Promise<boolean>;
     aliases(address: string): Promise<string[]>;
