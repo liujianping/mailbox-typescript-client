@@ -14,7 +14,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -67,13 +67,95 @@ var Mailbox = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Mailbox.prototype.health = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/health")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.status === 200];
+                }
+            });
+        });
+    };
+    Mailbox.prototype.getToken = function () {
+        return this.token;
+    };
+    Mailbox.prototype.accountExist = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/api/v1/setup/account/exist")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data.exist];
+                }
+            });
+        });
+    };
+    Mailbox.prototype.setPass = function (password) {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.post("/api/v1/setup/account/setpass", {
+                            password: password,
+                        })];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data.success];
+                }
+            });
+        });
+    };
+    Mailbox.prototype.smtpStatus = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/api/v1/service/smtp/status")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data.status];
+                }
+            });
+        });
+    };
+    Mailbox.prototype.smtpStart = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/api/v1/service/smtp/start")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data.status === "started"];
+                }
+            });
+        });
+    };
+    Mailbox.prototype.smtpStop = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/api/v1/service/smtp/stop")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data.status === "stopped"];
+                }
+            });
+        });
+    };
     Mailbox.prototype.signIn = function (address, password) {
         return __awaiter(this, void 0, void 0, function () {
             var rs;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.api.post("/api/v1/auth/signin", {
-                            access: Mailbox.accessKey,
                             email: address,
                             password: password,
                         })];
@@ -82,6 +164,7 @@ var Mailbox = /** @class */ (function () {
                         this.expire_at = rs.data.expire_at;
                         this.token = rs.data.token;
                         this.api.defaults.headers.common['Authorization'] = rs.data.token;
+                        console.log("token => ", this.token);
                         return [2 /*return*/, true];
                 }
             });
@@ -93,7 +176,6 @@ var Mailbox = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.api.post("/api/v1/auth/refresh", {
-                            access: Mailbox.accessKey,
                             token: this.token,
                         })];
                     case 1:
@@ -101,6 +183,7 @@ var Mailbox = /** @class */ (function () {
                         this.expire_at = rs.data.expire_at;
                         this.token = rs.data.token;
                         this.api.defaults.headers.common['Authorization'] = rs.data.token;
+                        console.log("refresh => ", this.token);
                         return [2 /*return*/, true];
                 }
             });
