@@ -33,30 +33,67 @@ export class Mailbox {
         })
     }
 
+    public async health(): Promise<boolean> {
+        const rs = await this.api.get("/health")
+        return rs.status === 200
+    }
+
+    public getToken(): string {
+        return this.token
+    }
+
+    public async accountExist(): Promise<boolean> {
+        const rs = await this.api.get("/api/v1/setup/account/exist")
+        return rs.data.exist
+    }
+
+    public async setPass(password: string): Promise<boolean> {
+        const rs = await this.api.post("/api/v1/setup/account/setpass", 
+            {
+                password: password,
+            })
+        return rs.data.success
+    }
+
+    public async smtpStatus(): Promise<string> {
+        const rs = await this.api.get("/api/v1/service/smtp/status")
+        return rs.data.status
+    }
+
+    public async smtpStart(): Promise<boolean> {
+        const rs = await this.api.get("/api/v1/service/smtp/start")
+        return rs.data.status === "started"        
+    }
+
+    public async smtpStop(): Promise<boolean> {
+        const rs = await this.api.get("/api/v1/service/smtp/stop")
+        return rs.data.status === "stopped"        
+    }
+
     public async signIn(address: string, password: string): Promise<boolean> {
         const rs = await this.api.post("/api/v1/auth/signin",
             {
-                access: Mailbox.accessKey,
                 email: address,
                 password: password,
             }
         )       
         this.expire_at = rs.data.expire_at
         this.token = rs.data.token
-        this.api.defaults.headers.common['Authorization'] = rs.data.token
+        this.api.defaults.headers.common['Authorization'] = rs.data.token        
+        console.log("token => ", this.token)
         return true;          
     }
 
     public async refresh(): Promise<boolean> {
         const rs = await this.api.post("/api/v1/auth/refresh",
             {
-                access: Mailbox.accessKey,
                 token: this.token,
             }
         )   
         this.expire_at = rs.data.expire_at
         this.token = rs.data.token     
         this.api.defaults.headers.common['Authorization'] = rs.data.token   
+        console.log("refresh => ", this.token)
         return true
     }
 
