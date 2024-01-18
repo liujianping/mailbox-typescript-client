@@ -42,9 +42,9 @@ export class Mailbox {
         return this.token
     }
 
-    public async accountExist(): Promise<boolean> {
+    public async accountExist(): Promise<AccountInfo> {
         const rs = await this.api.get("/api/v1/setup/account/exist")
-        return rs.data.exist
+        return rs.data
     }
 
     public async setPass(password: string): Promise<boolean> {
@@ -306,6 +306,11 @@ export class Mailbox {
         )
         return rs.data
     }
+}
+
+export interface AccountInfo {
+    address: string;
+    exist: boolean;
 }
 
 export const enum Category {

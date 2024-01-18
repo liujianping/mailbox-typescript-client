@@ -9,7 +9,7 @@ export declare class Mailbox {
     constructor();
     health(): Promise<boolean>;
     getToken(): string;
-    accountExist(): Promise<boolean>;
+    accountExist(): Promise<AccountInfo>;
     setPass(password: string): Promise<boolean>;
     smtpStatus(): Promise<string>;
     smtpStart(): Promise<boolean>;
@@ -40,6 +40,10 @@ export declare class Mailbox {
     MessageSend(uid: number): Promise<number>;
     MessageAppend(): Promise<number>;
     threadMessages(folderId: number, offset: number, limit: number): Promise<any>;
+}
+export interface AccountInfo {
+    address: string;
+    exist: boolean;
 }
 export declare const enum Category {
     AliasFolder = "alias",

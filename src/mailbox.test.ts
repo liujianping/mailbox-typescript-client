@@ -15,16 +15,14 @@ test('health', () => {
     expect(Mailbox.instance.health()).resolves.toBe(true);
 })
 
-// test('set pass', async () => {   
-//     const rs1 = await Mailbox.instance.accountExist();
-//     expect(rs1).toBe(false); 
-//     const rs2 = await Mailbox.instance.setPass("hello789122");  
-//     expect(rs2).toBe(true);    
-// })
-
-test('account exist', async () => {
-    const rs = await Mailbox.instance.accountExist();
-    expect(rs).toBe(true);    
+test('set pass', async () => {   
+    const rs1 = await Mailbox.instance.accountExist();
+    if (rs1.exist === false) {
+        const rs2 = await Mailbox.instance.setPass("hello789122");  
+        expect(rs2).toBe(true); 
+    } else {
+        expect(rs1.exist).toBe(true); 
+    }           
 })
 
 test('sign in', async () => {
@@ -48,4 +46,9 @@ test('smtp ctrl', async () => {
         const rs2 = await Mailbox.instance.smtpStart();
         expect(rs2).toBe(true);    
     } 
+})
+
+test('folder list', async () => {
+    const rs = await Mailbox.instance.folderList([], "*");
+    expect(rs.length).toBeGreaterThanOrEqual(5);  
 })

@@ -91,7 +91,7 @@ var Mailbox = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.get("/api/v1/setup/account/exist")];
                     case 1:
                         rs = _a.sent();
-                        return [2 /*return*/, rs.data.exist];
+                        return [2 /*return*/, rs.data];
                 }
             });
         });

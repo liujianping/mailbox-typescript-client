@@ -48,21 +48,23 @@ afterAll(function () {
 (0, globals_1.test)('health', function () {
     (0, globals_1.expect)(_1.Mailbox.instance.health()).resolves.toBe(true);
 });
-// test('set pass', async () => {   
-//     const rs1 = await Mailbox.instance.accountExist();
-//     expect(rs1).toBe(false); 
-//     const rs2 = await Mailbox.instance.setPass("hello789122");  
-//     expect(rs2).toBe(true);    
-// })
-(0, globals_1.test)('account exist', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var rs;
+(0, globals_1.test)('set pass', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var rs1, rs2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, _1.Mailbox.instance.accountExist()];
             case 1:
-                rs = _a.sent();
-                (0, globals_1.expect)(rs).toBe(true);
-                return [2 /*return*/];
+                rs1 = _a.sent();
+                if (!(rs1.exist === false)) return [3 /*break*/, 3];
+                return [4 /*yield*/, _1.Mailbox.instance.setPass("hello789122")];
+            case 2:
+                rs2 = _a.sent();
+                (0, globals_1.expect)(rs2).toBe(true);
+                return [3 /*break*/, 4];
+            case 3:
+                (0, globals_1.expect)(rs1.exist).toBe(true);
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); });
@@ -111,6 +113,18 @@ afterAll(function () {
                 (0, globals_1.expect)(rs2).toBe(true);
                 _a.label = 5;
             case 5: return [2 /*return*/];
+        }
+    });
+}); });
+(0, globals_1.test)('folder list', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var rs;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, _1.Mailbox.instance.folderList([], "*")];
+            case 1:
+                rs = _a.sent();
+                (0, globals_1.expect)(rs.length).toBeGreaterThanOrEqual(5);
+                return [2 /*return*/];
         }
     });
 }); });
