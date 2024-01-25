@@ -68,6 +68,20 @@ afterAll(function () {
         }
     });
 }); });
+(0, globals_1.test)('dns settings', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var rs;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, _1.Mailbox.instance.dnsrecords()];
+            case 1:
+                rs = _a.sent();
+                (0, globals_1.expect)(rs.a_records.length).toBeGreaterThanOrEqual(1);
+                (0, globals_1.expect)(rs.mx_records.length).toBeGreaterThanOrEqual(1);
+                (0, globals_1.expect)(rs.txt_records.length).toBeGreaterThanOrEqual(1);
+                return [2 /*return*/];
+        }
+    });
+}); });
 (0, globals_1.test)('sign in', function () { return __awaiter(void 0, void 0, void 0, function () {
     var rs, tk;
     return __generator(this, function (_a) {

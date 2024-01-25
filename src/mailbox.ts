@@ -47,6 +47,11 @@ export class Mailbox {
         return rs.data
     }
 
+    public async dnsrecords(): Promise<DNSSettings> {
+        const rs = await this.api.get("/api/v1/setup/dns/settings")        
+        return rs.data
+    }
+
     public async setPass(password: string): Promise<boolean> {
         const rs = await this.api.post("/api/v1/setup/account/setpass", 
             {
@@ -79,8 +84,7 @@ export class Mailbox {
         )       
         this.expire_at = rs.data.expire_at
         this.token = rs.data.token
-        this.api.defaults.headers.common['Authorization'] = rs.data.token        
-        console.log("token => ", this.token)
+        this.api.defaults.headers.common['Authorization'] = rs.data.token                
         return true;          
     }
 
@@ -92,8 +96,7 @@ export class Mailbox {
         )   
         this.expire_at = rs.data.expire_at
         this.token = rs.data.token     
-        this.api.defaults.headers.common['Authorization'] = rs.data.token   
-        console.log("refresh => ", this.token)
+        this.api.defaults.headers.common['Authorization'] = rs.data.token           
         return true
     }
 
@@ -311,6 +314,31 @@ export class Mailbox {
 export interface AccountInfo {
     address: string;
     exist: boolean;
+}
+
+
+// type DNSRecord struct {
+// 	Domain   string `json:"domain,omitempty"`
+// 	Name     string `json:"name"`
+// 	Type     string `json:"type"`
+// 	Value    string `json:"value"`
+// 	Priority int    `json:"priority,omitempty"`
+// }
+export interface DNSRecord {
+    Domain: string;
+    Name: string;
+    Type: string;
+    Value: string;
+    Priority: number;
+}
+
+export interface DNSSettings {
+    a_records: DNSRecord[];
+    // AAAA: DNSRecord[];
+    // CNAME: DNSRecord[];
+    mx_records: DNSRecord[];
+    txt_records: DNSRecord[];
+    // SRV: DNSRecord[];
 }
 
 export const enum Category {

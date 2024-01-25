@@ -96,6 +96,19 @@ var Mailbox = /** @class */ (function () {
             });
         });
     };
+    Mailbox.prototype.dnsrecords = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/api/v1/setup/dns/settings")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data];
+                }
+            });
+        });
+    };
     Mailbox.prototype.setPass = function (password) {
         return __awaiter(this, void 0, void 0, function () {
             var rs;
@@ -164,7 +177,6 @@ var Mailbox = /** @class */ (function () {
                         this.expire_at = rs.data.expire_at;
                         this.token = rs.data.token;
                         this.api.defaults.headers.common['Authorization'] = rs.data.token;
-                        console.log("token => ", this.token);
                         return [2 /*return*/, true];
                 }
             });
@@ -183,7 +195,6 @@ var Mailbox = /** @class */ (function () {
                         this.expire_at = rs.data.expire_at;
                         this.token = rs.data.token;
                         this.api.defaults.headers.common['Authorization'] = rs.data.token;
-                        console.log("refresh => ", this.token);
                         return [2 /*return*/, true];
                 }
             });

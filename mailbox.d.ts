@@ -10,6 +10,7 @@ export declare class Mailbox {
     health(): Promise<boolean>;
     getToken(): string;
     accountExist(): Promise<AccountInfo>;
+    dnsrecords(): Promise<DNSSettings>;
     setPass(password: string): Promise<boolean>;
     smtpStatus(): Promise<string>;
     smtpStart(): Promise<boolean>;
@@ -44,6 +45,18 @@ export declare class Mailbox {
 export interface AccountInfo {
     address: string;
     exist: boolean;
+}
+export interface DNSRecord {
+    Domain: string;
+    Name: string;
+    Type: string;
+    Value: string;
+    Priority: number;
+}
+export interface DNSSettings {
+    a_records: DNSRecord[];
+    mx_records: DNSRecord[];
+    txt_records: DNSRecord[];
 }
 export declare const enum Category {
     AliasFolder = "alias",

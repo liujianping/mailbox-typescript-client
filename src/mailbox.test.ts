@@ -25,6 +25,13 @@ test('set pass', async () => {
     }           
 })
 
+test('dns settings', async () => {
+    const rs = await Mailbox.instance.dnsrecords();
+    expect(rs.a_records.length).toBeGreaterThanOrEqual(1);
+    expect(rs.mx_records.length).toBeGreaterThanOrEqual(1);
+    expect(rs.txt_records.length).toBeGreaterThanOrEqual(1);  
+})
+
 test('sign in', async () => {
     const rs = await Mailbox.instance.signIn("i@example.com", "hello789122");
     expect(rs).toBe(true);  
