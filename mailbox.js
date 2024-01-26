@@ -182,20 +182,24 @@ var Mailbox = /** @class */ (function () {
             });
         });
     };
-    Mailbox.prototype.refresh = function () {
+    Mailbox.prototype.refresh = function (token) {
         return __awaiter(this, void 0, void 0, function () {
             var rs;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post("/api/v1/auth/refresh", {
-                            token: this.token,
-                        })];
+                    case 0:
+                        if (token) {
+                            this.token = token;
+                        }
+                        return [4 /*yield*/, this.api.post("/api/v1/auth/refresh", {
+                                token: this.token,
+                            })];
                     case 1:
                         rs = _a.sent();
                         this.expire_at = rs.data.expire_at;
                         this.token = rs.data.token;
                         this.api.defaults.headers.common['Authorization'] = rs.data.token;
-                        return [2 /*return*/, true];
+                        return [2 /*return*/, rs.data.token];
                 }
             });
         });
