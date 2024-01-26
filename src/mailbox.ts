@@ -88,7 +88,10 @@ export class Mailbox {
         return true;          
     }
 
-    public async refresh(): Promise<boolean> {
+    public async refresh(token?: string): Promise<string> {
+        if (token) {
+            this.token = token
+        }
         const rs = await this.api.post("/api/v1/auth/refresh",
             {
                 token: this.token,
@@ -97,7 +100,7 @@ export class Mailbox {
         this.expire_at = rs.data.expire_at
         this.token = rs.data.token     
         this.api.defaults.headers.common['Authorization'] = rs.data.token           
-        return true
+        return rs.data.token
     }
 
     public async aliases(address: string): Promise<string[]> {
