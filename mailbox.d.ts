@@ -47,11 +47,11 @@ export interface AccountInfo {
     exist: boolean;
 }
 export interface DNSRecord {
-    Domain: string;
-    Name: string;
-    Type: string;
-    Value: string;
-    Priority: number;
+    domain: string;
+    name: string;
+    type: string;
+    value: string;
+    priority?: number;
 }
 export interface DNSSettings {
     a_records: DNSRecord[];
