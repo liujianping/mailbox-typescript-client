@@ -273,6 +273,19 @@ var Mailbox = /** @class */ (function () {
             });
         });
     };
+    Mailbox.prototype.folderTree = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get("/api/v1/mailbox/folder/tree")];
+                    case 1:
+                        rs = _a.sent();
+                        return [2 /*return*/, rs.data.folders];
+                }
+            });
+        });
+    };
     Mailbox.prototype.folderList = function (categories, regex) {
         return __awaiter(this, void 0, void 0, function () {
             var rs;

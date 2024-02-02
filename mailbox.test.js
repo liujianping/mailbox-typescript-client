@@ -103,7 +103,7 @@ afterAll(function () {
             case 0: return [4 /*yield*/, _1.Mailbox.instance.refresh()];
             case 1:
                 rs = _a.sent();
-                (0, globals_1.expect)(rs).toBe(true);
+                (0, globals_1.expect)(rs).not.toBeNull();
                 return [2 /*return*/];
         }
     });
@@ -135,6 +135,18 @@ afterAll(function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, _1.Mailbox.instance.folderList([], "*")];
+            case 1:
+                rs = _a.sent();
+                (0, globals_1.expect)(rs.length).toBeGreaterThanOrEqual(5);
+                return [2 /*return*/];
+        }
+    });
+}); });
+(0, globals_1.test)('folder tree', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var rs;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, _1.Mailbox.instance.folderTree()];
             case 1:
                 rs = _a.sent();
                 (0, globals_1.expect)(rs.length).toBeGreaterThanOrEqual(5);

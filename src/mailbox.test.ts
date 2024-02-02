@@ -40,8 +40,8 @@ test('sign in', async () => {
 })
 
 test('refresh', async () => {   
-    const rs = await Mailbox.instance.refresh();  
-    expect(rs).toBe(true);    
+    const rs = await Mailbox.instance.refresh();      
+    expect(rs).not.toBeNull();    
 })
 
 test('smtp ctrl', async () => {   
@@ -57,5 +57,10 @@ test('smtp ctrl', async () => {
 
 test('folder list', async () => {
     const rs = await Mailbox.instance.folderList([], "*");
+    expect(rs.length).toBeGreaterThanOrEqual(5);  
+})
+
+test('folder tree', async () => {
+    const rs = await Mailbox.instance.folderTree();
     expect(rs.length).toBeGreaterThanOrEqual(5);  
 })

@@ -144,6 +144,11 @@ export class Mailbox {
         return rs.data.folders
     }
 
+    public async folderTree(): Promise<FolderNode[]> {
+        const rs = await this.api.get(`/api/v1/mailbox/folder/tree`)
+        return rs.data.folders
+    }
+
     public async folderList(categories: Category[], regex: string): Promise<Folder[]> {
         const rs = await this.api.post("/api/v1/mailbox/folder/list",
             {
@@ -371,6 +376,17 @@ export interface Folder {
     category: Category;
     unseen: number;
     total: number;
+}
+
+export interface FolderNode {
+    id: number;
+    parent_id: number;
+    name: string;
+    path: string;
+    category: Category;
+    unseen: number;
+    total: number;
+    children?: FolderNode[];
 }
 
 export interface Message {

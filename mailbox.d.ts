@@ -22,6 +22,7 @@ export declare class Mailbox {
     aliasRemove(address: string, force?: boolean): Promise<string[]>;
     aliasInfo(address: string): Promise<Folder>;
     aliasFolders(address: string): Promise<Folder[]>;
+    folderTree(): Promise<FolderNode[]>;
     folderList(categories: Category[], regex: string): Promise<Folder[]>;
     folderInfo(id: number): Promise<Folder>;
     folderClean(id: number): Promise<number>;
@@ -83,6 +84,16 @@ export interface Folder {
     category: Category;
     unseen: number;
     total: number;
+}
+export interface FolderNode {
+    id: number;
+    parent_id: number;
+    name: string;
+    path: string;
+    category: Category;
+    unseen: number;
+    total: number;
+    children?: FolderNode[];
 }
 export interface Message {
     uid: number;
