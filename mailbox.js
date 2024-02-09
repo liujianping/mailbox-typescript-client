@@ -435,7 +435,7 @@ var Mailbox = /** @class */ (function () {
             var rs;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post("/api/v1/mailbox/folder/messages", {
+                    case 0: return [4 /*yield*/, this.api.post("/api/v1/mailbox/folder/threads", {
                             folder_id: folderId,
                             offset: offset,
                             limit: limit,

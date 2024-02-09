@@ -56,7 +56,7 @@ afterAll(function () {
             case 1:
                 rs1 = _a.sent();
                 if (!(rs1.exist === false)) return [3 /*break*/, 3];
-                return [4 /*yield*/, _1.Mailbox.instance.setPass("hello789122")];
+                return [4 /*yield*/, _1.Mailbox.instance.setPass("abcd123456")];
             case 2:
                 rs2 = _a.sent();
                 (0, globals_1.expect)(rs2).toBe(true);
@@ -86,7 +86,7 @@ afterAll(function () {
     var rs, tk;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, _1.Mailbox.instance.signIn("i@example.com", "hello789122")];
+            case 0: return [4 /*yield*/, _1.Mailbox.instance.signIn("i@example.com", "abcd123456")];
             case 1:
                 rs = _a.sent();
                 (0, globals_1.expect)(rs).toBe(true);

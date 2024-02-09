@@ -227,7 +227,7 @@ export class Mailbox {
         return rs.data.effected
     }
 
-    public async folderMessages(folderId: number, offset: number, limit: number, flags: Flag[], fields: string[]) {
+    public async folderMessages(folderId: number, offset: number, limit: number, flags: Flag[], fields: string[]): Promise<FolderMessages> {
         const rs = await this.api.post("/api/v1/mailbox/folder/messages",
             {
                 folder_id: folderId,
@@ -240,8 +240,8 @@ export class Mailbox {
         return rs.data
     }
 
-    public async folderThreads(folderId: number, offset: number, limit: number) {
-        const rs = await this.api.post("/api/v1/mailbox/folder/messages",
+    public async folderThreads(folderId: number, offset: number, limit: number): Promise<FolderThreads> {
+        const rs = await this.api.post("/api/v1/mailbox/folder/threads",
             {
                 folder_id: folderId,
                 offset: offset,
@@ -340,13 +340,6 @@ export interface AccountInfo {
 }
 
 
-// type DNSRecord struct {
-// 	Domain   string `json:"domain,omitempty"`
-// 	Name     string `json:"name"`
-// 	Type     string `json:"type"`
-// 	Value    string `json:"value"`
-// 	Priority int    `json:"priority,omitempty"`
-// }
 export interface DNSRecord {
     domain: string;
     name: string;
@@ -404,13 +397,52 @@ export interface FolderNode {
     children?: FolderNode[];
 }
 
+
+export interface FolderMessages {
+    total: number;
+    messages: Message[];
+}
+
 export interface Message {
     uid: number;
+    folder_id: number;
     size?: number;
+    md5?: string;
+    text?: string;
+    html?: string;
     sender_name?: string;
     sender_address?: string;
+    recipient_name?: string;
     recipient_address?: string;
+    from_name?: string;
+    from_address?: string;
     subject?: string;
-    flags?: Flag[];
+    message_id?: string;
+    flags?: string[];
+    inline_count?: number;
+    attachment_count?: number;
     date?: string;
+    inlines?: string[];
+    attachments?: string[];
+    json?: string;
+}
+
+export interface FolderThreads {
+    total: number;
+    threads: Thread[];
+}
+
+export interface Thread {
+    thread_id: number;
+    folder_id: number;
+    sender_name: string;
+    sender_address: string;
+    from_name: string;
+    from_address: string;
+    subject: string;
+    message_id?: string;
+    date?: string;
+    unseen: number;
+    has_attachment: boolean;
+    total: number;
 }
