@@ -18,7 +18,7 @@ test('health', () => {
 test('set pass', async () => {   
     const rs1 = await Mailbox.instance.accountExist();
     if (rs1.exist === false) {
-        const rs2 = await Mailbox.instance.setPass("hello789122");  
+        const rs2 = await Mailbox.instance.setPass("abcd123456");  
         expect(rs2).toBe(true); 
     } else {
         expect(rs1.exist).toBe(true); 
@@ -33,7 +33,7 @@ test('dns settings', async () => {
 })
 
 test('sign in', async () => {
-    const rs = await Mailbox.instance.signIn("i@example.com", "hello789122");
+    const rs = await Mailbox.instance.signIn("i@example.com", "abcd123456");
     expect(rs).toBe(true);  
     const tk = Mailbox.instance.getToken();
     expect(tk).not.toBeNull();      

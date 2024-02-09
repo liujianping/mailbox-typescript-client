@@ -103,6 +103,21 @@ export class Mailbox {
         return rs.data.token
     }
 
+    public async signOut(token?: string): Promise<boolean> {
+        if (token) {
+            this.token = token
+        }
+        const rs = await this.api.post("/api/v1/auth/signout",
+            {
+                token: this.token,                
+            }
+        )   
+        this.expire_at = rs.data.expire_at
+        this.token = ""     
+        this.api.defaults.headers.common['Authorization'] = rs.data.token           
+        return true
+    }
+
     public async aliases(address: string): Promise<string[]> {
         const rs = await this.api.post("/api/v1/mailbox/alias/list",
             {

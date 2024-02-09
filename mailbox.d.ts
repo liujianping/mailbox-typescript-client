@@ -17,6 +17,7 @@ export declare class Mailbox {
     smtpStop(): Promise<boolean>;
     signIn(address: string, password: string): Promise<boolean>;
     refresh(token?: string): Promise<string>;
+    signOut(token?: string): Promise<boolean>;
     aliases(address: string): Promise<string[]>;
     aliasCreate(address: string): Promise<string[]>;
     aliasRemove(address: string, force?: boolean): Promise<string[]>;
