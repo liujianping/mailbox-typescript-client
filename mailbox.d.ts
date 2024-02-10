@@ -113,6 +113,10 @@ export interface Message {
     recipient_address?: string;
     from_name?: string;
     from_address?: string;
+    is_forwarded?: boolean;
+    forwarded_to?: string;
+    is_list?: boolean;
+    list_unsubscribe?: string;
     subject?: string;
     message_id?: string;
     flags?: string[];
@@ -121,7 +125,7 @@ export interface Message {
     date?: string;
     inlines?: string[];
     attachments?: string[];
-    json?: string;
+    json?: Object;
 }
 export interface FolderThreads {
     total: number;
@@ -134,6 +138,10 @@ export interface Thread {
     sender_address: string;
     from_name: string;
     from_address: string;
+    is_forwarded: boolean;
+    forwarded_to: string;
+    is_list: boolean;
+    list_unsubscribe: string;
     subject: string;
     message_id?: string;
     date?: string;
